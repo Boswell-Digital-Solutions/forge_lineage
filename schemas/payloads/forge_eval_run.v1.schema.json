@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge_lineage/schemas/payloads/forge_eval_run.v1",
+  "title": "ForgeEvalRunPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "forge_eval_run_id", "repository_id", "head_ref"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "forge_eval_run.v1"},
+    "forge_eval_run_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "repository_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "base_ref": {"type": "string", "maxLength": 256},
+    "head_ref": {"type": "string", "minLength": 1, "maxLength": 256},
+    "started_at": {"type": "string", "format": "date-time"},
+    "deterministic": {"type": "boolean"}
+  }
+}

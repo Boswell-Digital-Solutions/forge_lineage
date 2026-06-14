@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RunRef.v1",
+  "description": "Stable reference to a subsystem run.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "system",
+    "run_id"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "RunRef.v1"
+    },
+    "system": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "component": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

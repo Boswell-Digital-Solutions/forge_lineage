@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "YellowjacketReviewPacketPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "review_packet_id", "captured_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "yellowjacket_review_packet.v1"},
+    "review_packet_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "captured_at": {"type": "string", "format": "date-time"},
+    "run_status": {"type": "string", "maxLength": 64},
+    "verification_status": {"type": "string", "maxLength": 64},
+    "candidate_output_count": {"type": "integer", "minimum": 0},
+    "evidence_bundle_ref_count": {"type": "integer", "minimum": 0}
+  }
+}

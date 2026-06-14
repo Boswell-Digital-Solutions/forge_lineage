@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge_lineage/schemas/payloads/fake_producer_run.v1",
+  "title": "FakeProducerRunPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "run_id", "started_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "fake_producer_run.v1"},
+    "run_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "started_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": "string", "format": "date-time"},
+    "label": {"type": "string", "maxLength": 512}
+  }
+}

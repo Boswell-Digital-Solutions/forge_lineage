@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ForgehqSignalIntakePayload.v1",
+  "type": "object",
+  "required": ["schema_version", "signal_intake_id", "ingested_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "forgehq_signal_intake.v1"},
+    "signal_intake_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "ingested_at": {"type": "string", "format": "date-time"},
+    "source_output_id": {"type": "string", "maxLength": 256},
+    "source_payload_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

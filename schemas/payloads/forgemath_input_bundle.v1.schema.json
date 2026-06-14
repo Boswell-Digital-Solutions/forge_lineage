@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ForgemathInputBundlePayload.v1",
+  "type": "object",
+  "required": ["schema_version", "input_bundle_id", "payload_hash"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "forgemath_input_bundle.v1"},
+    "input_bundle_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "payload_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "received_at": {"type": "string", "format": "date-time"}
+  }
+}

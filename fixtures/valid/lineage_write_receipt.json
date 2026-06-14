@@ -1,0 +1,12 @@
+{
+  "schema_version": "LineageWriteReceipt.v1",
+  "receipt_id": "receipt:0001",
+  "record_type": "node",
+  "record_id": "node:fake-producer-run:0001",
+  "idempotency_key": "idem:fake-producer:run:0001",
+  "payload_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "writer_identity": "fake-producer",
+  "accepted_at": "2026-05-04T15:00:05Z",
+  "validation_status": "accepted",
+  "signature_status": "unsigned"
+}

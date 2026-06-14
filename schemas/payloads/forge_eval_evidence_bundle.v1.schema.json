@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge_lineage/schemas/payloads/forge_eval_evidence_bundle.v1",
+  "title": "ForgeEvalEvidenceBundlePayload.v1",
+  "type": "object",
+  "required": ["schema_version", "forge_eval_run_id", "evidence_bundle_id", "payload_hash"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "forge_eval_evidence_bundle.v1"},
+    "forge_eval_run_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "evidence_bundle_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "payload_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "stage_count": {"type": "integer", "minimum": 0},
+    "produced_at": {"type": "string", "format": "date-time"}
+  }
+}

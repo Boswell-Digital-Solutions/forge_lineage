@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DecisionRef.v1",
+  "description": "Reference to an operator or gate decision required for operator-asserted causality.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "decision_id",
+    "decided_by"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "DecisionRef.v1"
+    },
+    "decision_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "decided_by": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "decided_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decision_kind": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge_lineage/schemas/payloads/eval_cal_gate_decision.v1",
+  "title": "EvalCalGateDecisionPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "decision_id", "gate", "outcome", "decided_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "eval_cal_gate_decision.v1"},
+    "decision_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "gate": {"type": "string", "enum": ["gate_1", "gate_2", "gate_3"]},
+    "outcome": {"type": "string", "enum": ["approved", "rejected", "blocked"]},
+    "decided_at": {"type": "string", "format": "date-time"},
+    "block_reason_class": {"type": "string", "maxLength": 256}
+  }
+}

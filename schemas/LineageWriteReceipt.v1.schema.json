@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LineageWriteReceipt.v1",
+  "description": "Receipt issued for an accepted (or accepted-duplicate / pending) lineage write.",
+  "type": "object",
+  "required": [
+    "receipt_id",
+    "record_type",
+    "record_id",
+    "schema_version",
+    "idempotency_key",
+    "payload_hash",
+    "writer_identity",
+    "accepted_at",
+    "validation_status",
+    "signature_status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "LineageWriteReceipt.v1"
+    },
+    "receipt_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "record_type": {
+      "type": "string",
+      "enum": [
+        "node",
+        "edge"
+      ]
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "payload_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "writer_identity": {
+      "type": "string",
+      "enum": [
+        "forge-eval",
+        "eval-cal-node",
+        "forgemath",
+        "forgehq",
+        "yellowjacket",
+        "forgecommand",
+        "smith",
+        "dataforge-local",
+        "fake-producer",
+        "fake-consumer"
+      ]
+    },
+    "accepted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": [
+        "accepted",
+        "accepted_duplicate",
+        "pending",
+        "rejected"
+      ]
+    },
+    "signature_status": {
+      "type": "string",
+      "enum": [
+        "unsigned",
+        "signed",
+        "invalid"
+      ]
+    }
+  }
+}

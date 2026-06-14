@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "YellowjacketRunTracePayload.v1",
+  "type": "object",
+  "required": ["schema_version", "run_trace_id", "captured_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "yellowjacket_run_trace.v1"},
+    "run_trace_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "workcell_id": {"type": "string", "maxLength": 256},
+    "captured_at": {"type": "string", "format": "date-time"},
+    "event_count": {"type": "integer", "minimum": 0},
+    "state_transition_count": {"type": "integer", "minimum": 0},
+    "degraded_event_count": {"type": "integer", "minimum": 0},
+    "trace_payload_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

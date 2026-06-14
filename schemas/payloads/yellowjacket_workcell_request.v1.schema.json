@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "YellowjacketWorkcellRequestPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "workcell_request_id", "workcell_id", "requested_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "yellowjacket_workcell_request.v1"},
+    "workcell_request_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "workcell_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "workcell_version": {"type": "string", "maxLength": 128},
+    "requested_at": {"type": "string", "format": "date-time"},
+    "requested_by": {"type": "string", "maxLength": 256}
+  }
+}

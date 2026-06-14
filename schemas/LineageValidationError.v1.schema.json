@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LineageValidationError.v1",
+  "description": "Stable error shape returned by ingestion API on rejected writes.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "error_class",
+    "message"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "LineageValidationError.v1"
+    },
+    "error_class": {
+      "type": "string",
+      "enum": [
+        "schema_invalid",
+        "payload_schema_invalid",
+        "unknown_writer",
+        "idempotency_conflict",
+        "duplicate_accepted",
+        "source_node_missing",
+        "target_node_missing",
+        "edge_pending",
+        "edge_invalid",
+        "signature_invalid",
+        "storage_error",
+        "forbidden",
+        "unknown"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "field_path": {
+      "type": "string",
+      "maxLength": 1024
+    },
+    "record_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "missing_node_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "idempotency_key": {
+      "type": "string",
+      "maxLength": 256
+    }
+  }
+}

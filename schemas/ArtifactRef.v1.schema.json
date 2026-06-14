@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ArtifactRef.v1",
+  "description": "Stable reference to an artifact produced or consumed by a node.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_family",
+    "artifact_id"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "ArtifactRef.v1"
+    },
+    "artifact_family": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "artifact_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "lineage_root_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "payload_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

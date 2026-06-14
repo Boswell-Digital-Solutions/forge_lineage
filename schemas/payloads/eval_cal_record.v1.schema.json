@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge_lineage/schemas/payloads/eval_cal_record.v1",
+  "title": "EvalCalRecordPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "record_id", "ingested_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "eval_cal_record.v1"},
+    "record_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "ingested_at": {"type": "string", "format": "date-time"},
+    "source_evidence_bundle_id": {"type": "string", "maxLength": 256},
+    "source_payload_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

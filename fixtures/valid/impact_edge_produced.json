@@ -1,0 +1,17 @@
+{
+  "schema_version": "ImpactEdge.v1",
+  "edge_id": "edge:fake-producer:produced:0001",
+  "source_node_id": "node:fake-producer-run:0001",
+  "target_node_id": "node:fake-producer-artifact:0001",
+  "edge_type": "produced",
+  "causality_class": "deterministic",
+  "effect_class": "informational",
+  "evidence_refs": [],
+  "trace_id": "trace:phase05:0001",
+  "payload_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+  "idempotency_key": "idem:fake-producer:edge:produced:0001",
+  "writer_identity": "fake-producer",
+  "created_by_system": "fake-producer",
+  "created_at": "2026-05-04T15:00:06Z",
+  "validation_status": "accepted"
+}

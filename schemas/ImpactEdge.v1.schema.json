@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ImpactEdge.v1",
+  "description": "Append-only directed edge linking two lineage nodes. Causality + effect classes are required.",
+  "type": "object",
+  "required": [
+    "edge_id",
+    "schema_version",
+    "source_node_id",
+    "target_node_id",
+    "edge_type",
+    "causality_class",
+    "effect_class",
+    "created_at",
+    "created_by_system",
+    "writer_identity",
+    "idempotency_key",
+    "evidence_refs",
+    "validation_status",
+    "trace_id",
+    "payload_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "ImpactEdge.v1"
+    },
+    "edge_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "source_node_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "target_node_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "edge_type": {
+      "type": "string",
+      "enum": [
+        "produced",
+        "consumed",
+        "consumed_by",
+        "informed",
+        "blocked",
+        "required_review",
+        "approved_for_promotion",
+        "rejected_for_promotion",
+        "superseded",
+        "reviewed_by"
+      ]
+    },
+    "causality_class": {
+      "type": "string",
+      "enum": [
+        "deterministic",
+        "derived",
+        "declared",
+        "observed",
+        "operator_asserted",
+        "unknown"
+      ]
+    },
+    "effect_class": {
+      "type": "string",
+      "enum": [
+        "advisory",
+        "shaping",
+        "calibration",
+        "promotion",
+        "mutation",
+        "blocking",
+        "informational"
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "EvidenceRef.v1.schema.json"
+      },
+      "minItems": 0
+    },
+    "decision_ref": {
+      "$ref": "DecisionRef.v1.schema.json"
+    },
+    "trace_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "payload_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "writer_identity": {
+      "type": "string",
+      "enum": [
+        "forge-eval",
+        "eval-cal-node",
+        "forgemath",
+        "forgehq",
+        "yellowjacket",
+        "forgecommand",
+        "smith",
+        "dataforge-local",
+        "fake-producer",
+        "fake-consumer"
+      ]
+    },
+    "created_by_system": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "signature": {
+      "type": "string",
+      "maxLength": 4096
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": [
+        "accepted",
+        "pending",
+        "rejected",
+        "superseded",
+        "stale"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "causality_class": {
+            "const": "operator_asserted"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "decision_ref"
+        ]
+      }
+    }
+  ]
+}

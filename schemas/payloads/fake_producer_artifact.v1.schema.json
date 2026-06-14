@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge_lineage/schemas/payloads/fake_producer_artifact.v1",
+  "title": "FakeProducerArtifactPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "artifact_id", "produced_at", "payload_hash"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "fake_producer_artifact.v1"},
+    "artifact_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "produced_at": {"type": "string", "format": "date-time"},
+    "payload_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "label": {"type": "string", "maxLength": 256}
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "LineageNode.v1",
+  "node_id": "node:bad:0001",
+  "node_type": "unknown_node_type_not_allowed",
+  "payload_schema_id": "fake_producer_run",
+  "payload_schema_version": "v1",
+  "payload": {"schema_version": "fake_producer_run.v1", "run_id": "x", "started_at": "2026-05-04T15:00:00Z"},
+  "source_system": "fake-producer",
+  "source_component": "x",
+  "trace_id": "t",
+  "idempotency_key": "i",
+  "writer_identity": "fake-producer",
+  "recorded_at": "2026-05-04T15:00:00Z",
+  "validation_status": "accepted"
+}

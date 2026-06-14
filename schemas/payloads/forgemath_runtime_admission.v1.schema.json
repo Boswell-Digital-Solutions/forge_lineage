@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ForgemathRuntimeAdmissionPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "admission_id", "lane_evaluation_id", "decided_at", "decision"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "forgemath_runtime_admission.v1"},
+    "admission_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "lane_evaluation_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "decided_at": {"type": "string", "format": "date-time"},
+    "decision": {"type": "string", "enum": ["admitted", "rejected", "deferred"]},
+    "reason": {"type": "string", "maxLength": 1024}
+  }
+}

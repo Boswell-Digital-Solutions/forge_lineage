@@ -1,0 +1,17 @@
+{
+  "schema_version": "ImpactEdge.v1",
+  "edge_id": "edge:bad:0001",
+  "source_node_id": "n1",
+  "target_node_id": "n2",
+  "edge_type": "fabricated",
+  "causality_class": "deterministic",
+  "effect_class": "informational",
+  "evidence_refs": [],
+  "trace_id": "t",
+  "payload_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "idempotency_key": "i",
+  "writer_identity": "fake-producer",
+  "created_by_system": "fake-producer",
+  "created_at": "2026-05-04T15:00:00Z",
+  "validation_status": "accepted"
+}

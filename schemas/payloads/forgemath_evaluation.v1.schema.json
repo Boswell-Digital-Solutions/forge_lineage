@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ForgemathEvaluationPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "lane_evaluation_id", "evaluated_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "forgemath_evaluation.v1"},
+    "lane_evaluation_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "lane_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "evaluated_at": {"type": "string", "format": "date-time"},
+    "node_revision": {"type": "string", "maxLength": 128},
+    "deterministic": {"type": "boolean"}
+  }
+}

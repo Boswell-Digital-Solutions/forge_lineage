@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OperatorDecisionPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "decision_id", "decided_by", "decided_at", "outcome"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "operator_decision.v1"},
+    "decision_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "decided_by": {"type": "string", "minLength": 1, "maxLength": 256},
+    "decided_at": {"type": "string", "format": "date-time"},
+    "outcome": {"type": "string", "enum": ["approved", "rejected", "deferred", "blocked"]},
+    "decision_kind": {"type": "string", "maxLength": 128},
+    "reason": {"type": "string", "maxLength": 4096}
+  }
+}

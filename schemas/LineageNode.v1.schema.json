@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LineageNode.v1",
+  "description": "An append-only lineage node. Payload is discriminated by payload_schema_id + payload_schema_version. Sub-schema validation happens in the SDK and on the server before acceptance.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "node_id",
+    "node_type",
+    "payload_schema_id",
+    "payload_schema_version",
+    "payload",
+    "source_system",
+    "source_component",
+    "trace_id",
+    "idempotency_key",
+    "writer_identity",
+    "recorded_at",
+    "validation_status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "LineageNode.v1"
+    },
+    "node_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "node_type": {
+      "type": "string",
+      "enum": [
+        "fake_producer_run",
+        "fake_consumer_use",
+        "fake_producer_artifact",
+        "forge_eval_run",
+        "forge_eval_artifact",
+        "forge_eval_evidence_bundle",
+        "eval_cal_record",
+        "eval_cal_proposal",
+        "eval_cal_gate_decision",
+        "forgemath_input_bundle",
+        "forgemath_evaluation",
+        "forgemath_output",
+        "forgemath_runtime_admission",
+        "forgemath_trace",
+        "forgehq_signal_intake",
+        "forgehq_shaping_candidate",
+        "forgehq_reviewability_result",
+        "yellowjacket_workcell_request",
+        "yellowjacket_run_trace",
+        "yellowjacket_dependency_manifest",
+        "yellowjacket_review_packet",
+        "operator_decision"
+      ]
+    },
+    "payload_schema_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "payload_schema_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "payload": {
+      "type": "object"
+    },
+    "payload_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_system": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "source_component": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "run_ref": {
+      "$ref": "RunRef.v1.schema.json"
+    },
+    "artifact_ref": {
+      "$ref": "ArtifactRef.v1.schema.json"
+    },
+    "trace_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "writer_identity": {
+      "type": "string",
+      "enum": [
+        "forge-eval",
+        "eval-cal-node",
+        "forgemath",
+        "forgehq",
+        "yellowjacket",
+        "forgecommand",
+        "smith",
+        "dataforge-local",
+        "fake-producer",
+        "fake-consumer"
+      ]
+    },
+    "signature": {
+      "type": "string",
+      "maxLength": 4096
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": [
+        "accepted",
+        "pending",
+        "rejected",
+        "superseded",
+        "stale"
+      ]
+    }
+  }
+}

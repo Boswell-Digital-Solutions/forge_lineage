@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge_lineage/schemas/payloads/eval_cal_proposal.v1",
+  "title": "EvalCalProposalPayload.v1",
+  "type": "object",
+  "required": ["schema_version", "proposal_id", "record_id", "proposed_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "eval_cal_proposal.v1"},
+    "proposal_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "record_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "proposed_at": {"type": "string", "format": "date-time"},
+    "summary": {"type": "string", "maxLength": 4096}
+  }
+}

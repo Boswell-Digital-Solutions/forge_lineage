@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ForgehqShapingCandidatePayload.v1",
+  "type": "object",
+  "required": ["schema_version", "candidate_id", "proposed_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "string", "const": "forgehq_shaping_candidate.v1"},
+    "candidate_id": {"type": "string", "minLength": 1, "maxLength": 256},
+    "proposed_at": {"type": "string", "format": "date-time"},
+    "signal_intake_id": {"type": "string", "maxLength": 256},
+    "summary": {"type": "string", "maxLength": 4096}
+  }
+}
