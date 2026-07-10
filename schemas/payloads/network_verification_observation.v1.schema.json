@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge_lineage/schemas/payloads/network_verification_observation.v1",
+  "title": "NetworkVerificationObservationPayload.v1",
+  "description": "Lineage payload for a governed network verification observation. This records evidence and policy linkage only; it does not grant authority.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "network_verification_id",
+    "network_observation_artifact_id",
+    "network_observation_hash",
+    "network_observation_family",
+    "network_observation_version",
+    "policy_outcome",
+    "evidence_result_state",
+    "evidence_only",
+    "recorded_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "network_verification_observation.v1"
+    },
+    "network_verification_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "network_observation_artifact_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "network_observation_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "network_observation_family": {
+      "type": "string",
+      "const": "network_observation"
+    },
+    "network_observation_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "policy_outcome": {
+      "type": "string",
+      "enum": ["accepted_evidence", "blocked_degraded", "rejected"]
+    },
+    "evidence_result_state": {
+      "type": "string",
+      "enum": ["evidence_only", "hypothesis", "degraded_unverified"]
+    },
+    "evidence_only": {
+      "type": "boolean",
+      "const": true
+    },
+    "smith_policy_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "signature_status": {
+      "type": "string",
+      "enum": ["unsigned", "signed", "invalid"]
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

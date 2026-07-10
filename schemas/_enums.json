@@ -28,6 +28,7 @@
         "yellowjacket_run_trace",
         "yellowjacket_dependency_manifest",
         "yellowjacket_review_packet",
+        "network_verification_observation",
         "operator_decision"
       ]
     },

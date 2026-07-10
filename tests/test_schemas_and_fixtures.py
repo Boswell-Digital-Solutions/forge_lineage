@@ -40,6 +40,16 @@ def test_valid_produced_edge_passes():
     validate_edge(edge)
 
 
+def test_valid_network_verification_observation_node_passes():
+    node = _load(_FIXTURES / "valid" / "lineage_node_network_verification_observation.json")
+    validate_node(node)
+    validate_payload_against_subschema(
+        node["payload"],
+        payload_schema_id=node["payload_schema_id"],
+        payload_schema_version=node["payload_schema_version"],
+    )
+
+
 # -------- invalid fixtures: must fail for the expected reason -------------
 
 

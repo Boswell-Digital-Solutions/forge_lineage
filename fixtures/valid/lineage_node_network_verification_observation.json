@@ -1,0 +1,36 @@
+{
+  "schema_version": "LineageNode.v1",
+  "node_id": "node:network_verification_observation:fixture-001",
+  "node_type": "network_verification_observation",
+  "payload_schema_id": "network_verification_observation",
+  "payload_schema_version": "v1",
+  "payload": {
+    "schema_version": "network_verification_observation.v1",
+    "network_verification_id": "network-verification:snv-04-fixture",
+    "network_observation_artifact_id": "a1b2c3d4-0300-0300-0300-000000000300",
+    "network_observation_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "network_observation_family": "network_observation",
+    "network_observation_version": 1,
+    "policy_outcome": "accepted_evidence",
+    "evidence_result_state": "evidence_only",
+    "evidence_only": true,
+    "smith_policy_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+    "signature_status": "unsigned",
+    "recorded_at": "2026-07-10T06:42:00Z"
+  },
+  "payload_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+  "source_system": "smith",
+  "source_component": "forge-smithy/network_verification_policy_bridge",
+  "artifact_ref": {
+    "schema_version": "ArtifactRef.v1",
+    "artifact_family": "network_observation",
+    "artifact_id": "a1b2c3d4-0300-0300-0300-000000000300",
+    "artifact_version": "1",
+    "payload_hash": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "trace_id": "trace:snv:04:fixture",
+  "idempotency_key": "lineage-node:network-verification-observation:fixture-001",
+  "writer_identity": "smith",
+  "recorded_at": "2026-07-10T06:42:01Z",
+  "validation_status": "accepted"
+}
