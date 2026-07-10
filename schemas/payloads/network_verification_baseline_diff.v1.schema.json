@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge_lineage/schemas/payloads/network_verification_baseline_diff.v1",
+  "title": "NetworkVerificationBaselineDiffPayload.v1",
+  "description": "Lineage payload for a Smithy SNV-06 baseline diff. It records reviewable endpoint drift evidence only; it never mutates the approved baseline or asserts an incident verdict.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "baseline_diff_id",
+    "baseline_id",
+    "baseline_hash",
+    "network_verification_policy_id",
+    "network_verification_policy_hash",
+    "network_observation_artifact_id",
+    "network_observation_hash",
+    "diff_state",
+    "diff_outcome",
+    "evidence_only",
+    "baseline_mutated",
+    "incident_verdict",
+    "operator_decision_required",
+    "allowed_operator_decisions",
+    "findings",
+    "evaluated_at",
+    "recorded_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "network_verification_baseline_diff.v1"
+    },
+    "baseline_diff_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "baseline_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "baseline_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "network_verification_policy_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "network_verification_policy_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "network_observation_artifact_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "network_observation_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "diff_state": {
+      "type": "string",
+      "enum": ["unchanged", "changed"]
+    },
+    "diff_outcome": {
+      "type": "string",
+      "enum": ["no_change_evidence_only", "operator_review_required"]
+    },
+    "evidence_only": {
+      "type": "boolean",
+      "const": true
+    },
+    "baseline_mutated": {
+      "type": "boolean",
+      "const": false
+    },
+    "incident_verdict": {
+      "type": "string",
+      "const": "not_evaluated"
+    },
+    "operator_decision_required": {
+      "type": "boolean"
+    },
+    "allowed_operator_decisions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["accept_baseline_update", "reject_baseline_update"]
+      },
+      "uniqueItems": true,
+      "maxItems": 2
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "finding_type",
+          "target_value",
+          "protocol",
+          "port_number",
+          "finding_state"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "finding_type": {
+            "type": "string",
+            "enum": ["unexpected_endpoint", "removed_endpoint", "endpoint_state_changed"]
+          },
+          "target_value": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "protocol": {
+            "type": "string",
+            "enum": ["tcp", "udp"]
+          },
+          "port_number": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 65535
+          },
+          "baseline_state": {
+            "type": ["string", "null"]
+          },
+          "observed_state": {
+            "type": ["string", "null"]
+          },
+          "finding_state": {
+            "type": "string",
+            "const": "requires_operator_review"
+          }
+        }
+      }
+    },
+    "signature_status": {
+      "type": "string",
+      "enum": ["unsigned", "signed", "invalid"]
+    },
+    "evaluated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "diff_state": { "const": "unchanged" }
+        },
+        "required": ["diff_state"]
+      },
+      "then": {
+        "properties": {
+          "diff_outcome": { "const": "no_change_evidence_only" },
+          "operator_decision_required": { "const": false },
+          "allowed_operator_decisions": { "maxItems": 0 },
+          "findings": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "diff_state": { "const": "changed" }
+        },
+        "required": ["diff_state"]
+      },
+      "then": {
+        "properties": {
+          "diff_outcome": { "const": "operator_review_required" },
+          "operator_decision_required": { "const": true },
+          "allowed_operator_decisions": {
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "findings": { "minItems": 1 }
+        }
+      }
+    }
+  ]
+}

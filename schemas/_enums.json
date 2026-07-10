@@ -29,6 +29,7 @@
         "yellowjacket_dependency_manifest",
         "yellowjacket_review_packet",
         "network_verification_observation",
+        "network_verification_baseline_diff",
         "operator_decision"
       ]
     },

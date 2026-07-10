@@ -1,0 +1,53 @@
+{
+  "schema_version": "LineageNode.v1",
+  "node_id": "node:network_verification_baseline_diff:fixture-001",
+  "node_type": "network_verification_baseline_diff",
+  "payload_schema_id": "network_verification_baseline_diff",
+  "payload_schema_version": "v1",
+  "payload": {
+    "schema_version": "network_verification_baseline_diff.v1",
+    "baseline_diff_id": "network-baseline-diff:snv-06-fixture",
+    "baseline_id": "network-baseline:loopback-fixture",
+    "baseline_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "network_verification_policy_id": "network-policy-baseline-006",
+    "network_verification_policy_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "network_observation_artifact_id": "a1b2c3d4-0600-0600-0600-000000000600",
+    "network_observation_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "diff_state": "changed",
+    "diff_outcome": "operator_review_required",
+    "evidence_only": true,
+    "baseline_mutated": false,
+    "incident_verdict": "not_evaluated",
+    "operator_decision_required": true,
+    "allowed_operator_decisions": ["accept_baseline_update", "reject_baseline_update"],
+    "findings": [
+      {
+        "finding_type": "unexpected_endpoint",
+        "target_value": "127.0.0.1",
+        "protocol": "tcp",
+        "port_number": 443,
+        "baseline_state": null,
+        "observed_state": "open",
+        "finding_state": "requires_operator_review"
+      }
+    ],
+    "signature_status": "unsigned",
+    "evaluated_at": "2026-07-10T06:45:00Z",
+    "recorded_at": "2026-07-10T06:45:01Z"
+  },
+  "payload_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "source_system": "smith",
+  "source_component": "forge-smithy/network_verification_baseline_diff",
+  "artifact_ref": {
+    "schema_version": "ArtifactRef.v1",
+    "artifact_family": "network_verification_baseline_diff",
+    "artifact_id": "network-baseline-diff:snv-06-fixture",
+    "artifact_version": "1",
+    "payload_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "trace_id": "trace:snv:06:fixture",
+  "idempotency_key": "lineage-node:network-verification-baseline-diff:fixture-001",
+  "writer_identity": "smith",
+  "recorded_at": "2026-07-10T06:45:01Z",
+  "validation_status": "accepted"
+}
