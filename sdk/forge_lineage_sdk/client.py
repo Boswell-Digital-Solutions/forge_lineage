@@ -211,6 +211,14 @@ class LineageClient:
                     record_id=record_id,
                 )
 
+            if (
+                response.status_code in _RETRYABLE_TRANSPORT_STATUSES
+                and attempt < self._retry.max_attempts
+            ):
+                time.sleep(backoff)
+                backoff = min(backoff * 2, self._retry.max_backoff_s)
+                continue
+
             return self._classify_response(response, record_type=record_type, record_id=record_id)
 
         # Unreachable but defensive.

@@ -22,6 +22,8 @@ from pathlib import Path
 import httpx
 import pytest
 
+pytestmark = pytest.mark.integration
+
 _REPO_ROOT = Path(__file__).resolve().parents[3]
 _DATAFORGE_LOCAL = _REPO_ROOT / "dataforge-Local"
 if str(_DATAFORGE_LOCAL) not in sys.path:

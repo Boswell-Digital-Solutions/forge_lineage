@@ -38,7 +38,14 @@ while IFS= read -r part; do
 done < <(find "$PARTS_DIR" -mindepth 2 -maxdepth 2 -type f -name '[0-9][0-9]-*.md' | sort)
 [ "$PART_COUNT" -ge 7 ] || fail "expected at least 7 chapters, found $PART_COUNT"
 if [ -f "$VALIDATOR" ]; then bash "$VALIDATOR" "$TMP_OUTPUT" || fail "snapshot validation failed"; else fail "missing validator $VALIDATOR"; fi
-cp "$TMP_OUTPUT" "$ROOT_DIR/$OUTPUT"
-chmod 664 "$ROOT_DIR/$OUTPUT"
-LINE_COUNT=$(wc -l < "$ROOT_DIR/$OUTPUT")
-echo "BUILD_OK designation=${DESIGNATION} output=${OUTPUT} parts=${PART_COUNT} lines=${LINE_COUNT}"
+
+if [ "${CHECK:-0}" = "1" ]; then
+  [ -f "$ROOT_DIR/$OUTPUT" ] || fail "compiled output $OUTPUT is missing"
+  cmp -s "$TMP_OUTPUT" "$ROOT_DIR/$OUTPUT" || fail "compiled output $OUTPUT is stale; run bash doc/system/BUILD.sh"
+else
+  cp "$TMP_OUTPUT" "$ROOT_DIR/$OUTPUT"
+  chmod 664 "$ROOT_DIR/$OUTPUT"
+fi
+
+LINE_COUNT=$(wc -l < "$TMP_OUTPUT")
+echo "BUILD_OK designation=${DESIGNATION} output=${OUTPUT} parts=${PART_COUNT} lines=${LINE_COUNT} check=${CHECK:-0}"

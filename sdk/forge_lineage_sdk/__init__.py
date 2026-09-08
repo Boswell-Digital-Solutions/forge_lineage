@@ -16,6 +16,8 @@ from forge_lineage_sdk.validators import (
     validate_node,
     validate_edge,
     validate_envelope,
+    validate_validation_error,
+    validate_write_receipt,
     validate_payload_against_subschema,
     SchemaValidationError,
 )
@@ -35,6 +37,8 @@ __all__ = [
     "validate_node",
     "validate_edge",
     "validate_envelope",
+    "validate_validation_error",
+    "validate_write_receipt",
     "validate_payload_against_subschema",
     "SchemaValidationError",
     "EdgeRequirement",

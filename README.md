@@ -31,6 +31,12 @@ violate that governance rule. A future RFC can promote them.
 ## Running tests
 
 ```bash
-cd contracts/forge_lineage
-python -m pytest tests/ -v
+python -m pytest tests/ -v -m "not integration"
+CHECK=1 bash doc/system/BUILD.sh
+```
+
+Cross-repository tests require a compatible `dataforge-Local` checkout:
+
+```bash
+DATAFORGE_LOCAL=/path/to/dataforge-Local python -m pytest tests/ -v -m integration
 ```

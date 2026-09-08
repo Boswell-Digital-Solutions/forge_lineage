@@ -11,8 +11,12 @@ from forge_lineage_sdk.validators import (
     SchemaValidationError,
     validate_node,
     validate_edge,
+    validate_envelope,
     validate_payload_against_subschema,
+    validate_validation_error,
+    validate_write_receipt,
 )
+from forge_lineage_sdk.builders import build_envelope
 
 
 _FIXTURES = Path(__file__).resolve().parent.parent / "fixtures"
@@ -57,6 +61,35 @@ def test_valid_network_verification_baseline_diff_node_passes():
         node["payload"],
         payload_schema_id=node["payload_schema_id"],
         payload_schema_version=node["payload_schema_version"],
+    )
+
+
+def test_valid_write_receipt_passes():
+    receipt = _load(_FIXTURES / "valid" / "lineage_write_receipt.json")
+    validate_write_receipt(receipt)
+
+
+def test_valid_envelope_resolves_node_schema_reference():
+    node = _load(_FIXTURES / "valid" / "lineage_node_fake_producer_run.json")
+    envelope = build_envelope(
+        envelope_id="env:fixture:001",
+        writer_identity="fake-producer",
+        trace_id=node["trace_id"],
+        submitted_at="2026-05-04T15:00:05Z",
+        nodes=[node],
+        edges=[],
+    )
+    validate_envelope(envelope)
+
+
+def test_validation_error_shape_passes():
+    validate_validation_error(
+        {
+            "schema_version": "LineageValidationError.v1",
+            "error_class": "schema_invalid",
+            "message": "node_type is required",
+            "field_path": "/node_type",
+        }
     )
 
 

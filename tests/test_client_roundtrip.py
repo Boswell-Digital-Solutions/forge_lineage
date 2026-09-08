@@ -18,6 +18,8 @@ from pathlib import Path
 
 import pytest
 
+pytestmark = pytest.mark.integration
+
 # Add the dataforge-Local app to sys.path for in-process testing.
 _REPO_ROOT = Path(__file__).resolve().parents[3]
 _DATAFORGE_LOCAL = _REPO_ROOT / "dataforge-Local"

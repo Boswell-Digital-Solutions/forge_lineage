@@ -11,9 +11,9 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
-import jsonschema
 from jsonschema import Draft7Validator
 from jsonschema.exceptions import ValidationError as _JSValidationError
+from referencing import Registry, Resource
 
 
 _SCHEMA_ROOT = Path(__file__).resolve().parent.parent.parent / "schemas"
@@ -37,9 +37,18 @@ def _read_schema(name: str) -> dict[str, Any]:
         return json.load(fh)
 
 
+def _schema_uri(name: str) -> str:
+    """Return the canonical local URI used to resolve a bundled schema."""
+    return (_SCHEMA_ROOT / name).as_uri()
+
+
 @lru_cache(maxsize=64)
 def _load_core_schema(filename: str) -> dict[str, Any]:
-    return _read_schema(filename)
+    schema = _read_schema(filename)
+    # Core schemas use relative $refs but predate explicit IDs. Assigning a
+    # canonical file URI gives the supported reference registry a stable base.
+    schema.setdefault("$id", _schema_uri(filename))
+    return schema
 
 
 @lru_cache(maxsize=128)
@@ -61,33 +70,14 @@ _CROSS_REFERENCED_SCHEMAS = (
 )
 
 
-def _resolver_for(schema: dict[str, Any]) -> jsonschema.RefResolver:
-    base_uri = _SCHEMA_ROOT.as_uri() + "/"
-    # Pre-populate the resolver store with every cross-referenced schema, keyed
-    # by the file:// URI the schema would be addressed by from this base.
-    store: dict[str, dict[str, Any]] = {}
+@lru_cache(maxsize=1)
+def _schema_registry() -> Registry:
+    """Load core schemas into jsonschema's supported reference registry."""
+    resources: list[tuple[str, Resource]] = []
     for name in _CROSS_REFERENCED_SCHEMAS:
-        try:
-            doc = _read_schema(name)
-        except FileNotFoundError:
-            continue
-        # By bare filename ref (relative)…
-        store[base_uri + name] = doc
-        # …and by the file's own $id if it has one (defensive — Draft 7 may
-        # rebase under $id otherwise).
-        if isinstance(doc, dict) and "$id" in doc:
-            store[doc["$id"]] = doc
-
-    def _handler(uri: str) -> dict[str, Any]:
-        rel = uri.replace(base_uri, "")
-        return _read_schema(rel)
-
-    return jsonschema.RefResolver(
-        base_uri=base_uri,
-        referrer=schema,
-        store=store,
-        handlers={"file": _handler},
-    )
+        schema = _load_core_schema(name)
+        resources.append((schema["$id"], Resource.from_contents(schema)))
+    return Registry().with_resources(resources)
 
 
 def _format_path(path) -> str:  # noqa: ANN001
@@ -97,8 +87,7 @@ def _format_path(path) -> str:  # noqa: ANN001
 
 
 def _validate(schema: dict[str, Any], doc: Any, *, error_class: str) -> None:
-    resolver = _resolver_for(schema)
-    validator = Draft7Validator(schema, resolver=resolver)
+    validator = Draft7Validator(schema, registry=_schema_registry())
     try:
         validator.validate(doc)
     except _JSValidationError as exc:
@@ -122,6 +111,18 @@ def validate_edge(edge: dict[str, Any]) -> None:
 def validate_envelope(envelope: dict[str, Any]) -> None:
     schema = _load_core_schema("LineageIngestEnvelope.v1.schema.json")
     _validate(schema, envelope, error_class="schema_invalid")
+
+
+def validate_write_receipt(receipt: dict[str, Any]) -> None:
+    """Validate a server write receipt before a consumer relies on it."""
+    schema = _load_core_schema("LineageWriteReceipt.v1.schema.json")
+    _validate(schema, receipt, error_class="schema_invalid")
+
+
+def validate_validation_error(error: dict[str, Any]) -> None:
+    """Validate a structured server validation error."""
+    schema = _load_core_schema("LineageValidationError.v1.schema.json")
+    _validate(schema, error, error_class="schema_invalid")
 
 
 def validate_payload_against_subschema(
