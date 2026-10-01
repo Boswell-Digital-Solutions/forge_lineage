@@ -1,0 +1,50 @@
+{
+  "schema_version": "LineageNode.v1",
+  "node_id": "ffav-544d55e802c70d78aca398fe24393fb178453656ac528d1536131add5bcaa882",
+  "node_type": "failureforge_attestation_verdict",
+  "payload_schema_id": "failureforge_attestation_verdict",
+  "payload_schema_version": "v1",
+  "payload": {
+    "schema_version": "failureforge_attestation_verdict.v1",
+    "run_id": "SR-demo",
+    "payload_digest": "51bb8b329678f14827b41ef08b532a2f0597d2fb2983de9f8a3220663254dfda",
+    "proof": {
+      "proof_id": "8f0c2a64-1b3d-4e5f-9a7b-0c1d2e3f4a5b",
+      "schema_version": "1.0.0",
+      "signer_role": "operator_approval",
+      "signer_principal": "operator@forge-smithy",
+      "key_id": "ed25519:ffq-test-key",
+      "algorithm": "ed25519",
+      "signed_payload_hash": "51bb8b329678f14827b41ef08b532a2f0597d2fb2983de9f8a3220663254dfda",
+      "action_kind": "failureforge.handoff_attest",
+      "action_target": "SR-demo",
+      "nonce": "0123456789abcdef0123456789abcdef",
+      "issued_at": "2026-09-30T12:00:00Z",
+      "not_before": "2026-09-30T12:00:00Z",
+      "expires_at": "2026-09-30T12:05:00Z",
+      "signature": "pCULyPSV9ihoqaTmBWblm1dqbVkz0UC6CtiOG/6sKkIIqqHJcw4Ro5DQoNQSBDJvk6ZXNW4k+yDb0CcgK9pYAw==",
+      "signature_pre_image_hash": "18ae02e45a8774b3cdd997f7e748fd583decf6ed54bcc871ea03c2e82a961573",
+      "revocation_anchor": null,
+      "proof_scope": {
+        "session_id": "sess-ffq",
+        "run_id": null,
+        "depends_on": [],
+        "constraints": {}
+      }
+    },
+    "verdict": "accepted",
+    "reason_code": "ok",
+    "key_id": "ed25519:ffq-test-key",
+    "verified_at": "2026-09-30T12:01:00Z",
+    "expires_at": "2026-09-30T20:01:00Z",
+    "verifier": "forge-smithy"
+  },
+  "payload_hash": "544d55e802c70d78aca398fe24393fb178453656ac528d1536131add5bcaa882",
+  "source_system": "smith",
+  "source_component": "forge-smithy/failureforge_attestation_verdict",
+  "trace_id": "trace:ffq:failureforge_attestation_verdict:fixture",
+  "idempotency_key": "lineage-node:failureforge-attestation-verdict:fixture-001",
+  "writer_identity": "smith",
+  "recorded_at": "2026-09-30T12:01:01Z",
+  "validation_status": "accepted"
+}

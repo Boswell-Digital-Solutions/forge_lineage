@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "forge_lineage/schemas/payloads/failureforge_attestation_verdict.v1",
+  "title": "FailureForgeAttestationVerdictPayload.v1",
+  "description": "Shape of the failureforge_attestation_verdict payload carried by a lineage node. forge_contract_core owns the family and its semantic rules (RFC-FFQ-02). This copy checks the shape only. A reader of a verdict must still verify the embedded proof, because a lineage write takes no credential.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "payload_digest",
+    "proof",
+    "verdict",
+    "reason_code",
+    "key_id",
+    "verified_at",
+    "expires_at",
+    "verifier"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "failureforge_attestation_verdict.v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "payload_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "proof": {
+      "type": "object"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "accepted",
+        "rejected"
+      ]
+    },
+    "reason_code": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{1,63}$"
+    },
+    "key_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verified_at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "expires_at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "verifier": {
+      "type": "string",
+      "const": "forge-smithy"
+    }
+  }
+}
