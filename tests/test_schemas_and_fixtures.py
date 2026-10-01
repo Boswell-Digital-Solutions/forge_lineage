@@ -64,6 +64,43 @@ def test_valid_network_verification_baseline_diff_node_passes():
     )
 
 
+def test_valid_failureforge_attestation_nodes_pass():
+    for family in ("failureforge_attestation_verdict", "failureforge_attestation_revocation"):
+        node = _load(_FIXTURES / "valid" / f"lineage_node_{family}.json")
+        validate_node(node)
+        validate_payload_against_subschema(
+            node["payload"],
+            payload_schema_id=node["payload_schema_id"],
+            payload_schema_version=node["payload_schema_version"],
+        )
+        assert node["node_id"].startswith("ffav-" if family.endswith("verdict") else "ffar-")
+
+
+def test_a_failureforge_attestation_payload_with_an_extra_field_fails():
+    import pytest
+
+    node = _load(_FIXTURES / "valid" / "lineage_node_failureforge_attestation_revocation.json")
+    payload = dict(node["payload"], note="x")
+    with pytest.raises(Exception):
+        validate_payload_against_subschema(
+            payload,
+            payload_schema_id=node["payload_schema_id"],
+            payload_schema_version=node["payload_schema_version"],
+        )
+
+
+def test_the_node_type_list_names_both_attestation_types_and_still_refuses_unknown_ones():
+    import pytest
+
+    enum = _load(_FIXTURES.parent / "schemas" / "LineageNode.v1.schema.json")["properties"]["node_type"]["enum"]
+    assert "failureforge_attestation_verdict" in enum and "failureforge_attestation_revocation" in enum
+    assert enum == _load(_FIXTURES.parent / "schemas" / "_enums.json")["definitions"]["node_type"]["enum"]
+    node = _load(_FIXTURES / "valid" / "lineage_node_failureforge_attestation_verdict.json")
+    node["node_type"] = "failureforge_attestation_forged"
+    with pytest.raises(Exception):
+        validate_node(node)
+
+
 def test_valid_write_receipt_passes():
     receipt = _load(_FIXTURES / "valid" / "lineage_write_receipt.json")
     validate_write_receipt(receipt)

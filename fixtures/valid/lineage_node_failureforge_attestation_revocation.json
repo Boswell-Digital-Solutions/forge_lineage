@@ -1,0 +1,23 @@
+{
+  "schema_version": "LineageNode.v1",
+  "node_id": "ffar-0331b092e900b7eaf90ea22ad1dac8e4e5e6fee1ed11fe9f6b73ee804d38b4ff",
+  "node_type": "failureforge_attestation_revocation",
+  "payload_schema_id": "failureforge_attestation_revocation",
+  "payload_schema_version": "v1",
+  "payload": {
+    "schema_version": "failureforge_attestation_revocation.v1",
+    "verdict_node_id": "ffav-544d55e802c70d78aca398fe24393fb178453656ac528d1536131add5bcaa882",
+    "key_id": "ed25519:ffq-test-key",
+    "revoked_at": "2026-09-30T14:00:00Z",
+    "reason": "key revoked in the trust anchor",
+    "revocation_ref": "revocations.jsonl#42"
+  },
+  "payload_hash": "0331b092e900b7eaf90ea22ad1dac8e4e5e6fee1ed11fe9f6b73ee804d38b4ff",
+  "source_system": "smith",
+  "source_component": "forge-smithy/failureforge_attestation_revocation",
+  "trace_id": "trace:ffq:failureforge_attestation_revocation:fixture",
+  "idempotency_key": "lineage-node:failureforge-attestation-revocation:fixture-001",
+  "writer_identity": "smith",
+  "recorded_at": "2026-09-30T12:01:01Z",
+  "validation_status": "accepted"
+}

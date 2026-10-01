@@ -55,7 +55,9 @@
         "yellowjacket_review_packet",
         "network_verification_observation",
         "network_verification_baseline_diff",
-        "operator_decision"
+        "operator_decision",
+        "failureforge_attestation_verdict",
+        "failureforge_attestation_revocation"
       ]
     },
     "payload_schema_id": {
