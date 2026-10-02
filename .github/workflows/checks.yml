@@ -2,8 +2,18 @@ name: checks
 
 on:
   pull_request:
+    paths:
+      - '**'
+      - '!docs/**'
+      - '!doc/**'
+      - '!**/*.md'
   push:
     branches: [main]
+    paths:
+      - '**'
+      - '!docs/**'
+      - '!doc/**'
+      - '!**/*.md'
 
 jobs:
   unit-and-docs:
