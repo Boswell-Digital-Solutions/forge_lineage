@@ -1,0 +1,48 @@
+name: Documentation
+
+# Runs on documentation changes only. A change to code runs the code CI.
+# A change to documentation runs this workflow and no code CI.
+# See doc/system/06-verification.md ("Which CI runs for which change").
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'doc/**'
+      - '**/*.md'
+      - '.github/workflows/documentation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'doc/**'
+      - '**/*.md'
+      - '.github/workflows/documentation.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: documentation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  documentation:
+    name: Documentation (system build and snapshots)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Builds doc/LINSYSTEM.md from doc/system/ and validates the snapshots.
+      - name: Build the system reference
+        run: CHECK=1 bash doc/system/BUILD.sh
+
+      # Same checks as the code workflow: the assembled reference must be built
+      # from its parts and committed, and the diff must have no whitespace error.
+      - name: Fail if the assembled reference differs from its parts
+        run: git diff --exit-code -- doc
+
+      - name: Check the diff for whitespace errors
+        run: git diff --check
