@@ -3,6 +3,10 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this
 repository.
 
+## Repo Identity
+
+- Default branch: main
+
 ## Project Overview
 
 `forge_lineage` (ForgeLineage / ImpactGraph) is the shared contract corpus and Python SDK for
