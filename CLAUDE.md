@@ -19,7 +19,7 @@ housed outside `forge-contract-core` because that repo only admits new contract 
 
 ```bash
 python -m pytest tests/ -v -m "not integration"      # unit + schema/fixture/SDK tests
-CHECK=1 bash doc/system/BUILD.sh                       # verify doc/LINSYSTEM.md is up to date
+CHECK=1 bash doc/system/BUILD.sh                       # verify doc/linSYSTEM.md is up to date
 ```
 
 Cross-repository integration tests require a compatible `dataforge-Local` checkout:
@@ -40,7 +40,7 @@ CI (`.github/workflows/checks.yml`) runs the unit tests, the doc-system build ch
 - `sdk/forge_lineage_sdk/` — the Python SDK (`LineageClient`), packaged separately as
   `forge-lineage-sdk` (`sdk/pyproject.toml`).
 - `tests/` — schema, fixture, and SDK tests.
-- `doc/system/` is the authored source for the canonical `doc/LINSYSTEM.md` reference; rebuild with
+- `doc/system/` is the authored source for the canonical `doc/linSYSTEM.md` reference; rebuild with
   `bash doc/system/BUILD.sh` rather than hand-editing the generated file.
 
 ## Notes

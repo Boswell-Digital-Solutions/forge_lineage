@@ -45,7 +45,7 @@ A change to `.github/workflows/**` is code, so it runs the code CI.
 No test, SDK module or script reads a file under `doc/` or a Markdown file.
 The SDK `pyproject.toml` names no README.
 Therefore no documentation path needs a re-include.
-The job `unit-and-docs` also builds `doc/LINSYSTEM.md`, and that step still runs on every code change.
+The job `unit-and-docs` also builds `doc/linSYSTEM.md`, and that step still runs on every code change.
 If a test or script starts to read a documentation path, add that path as a re-include in the same change.
 
 The Documentation CI is `.github/workflows/documentation.yml`.

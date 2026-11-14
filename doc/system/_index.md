@@ -1,13 +1,13 @@
         # forge_lineage - Compiled System Reference
 
-        **Designation:** LIN
+        **Designation:** lin
         **Document role:** Canonical compiled technical reference for ForgeLineage and ImpactGraph contracts
         **Source:** `doc/system/`
         **Build command:** `bash doc/system/BUILD.sh`
         **Document version:** 2.0 (2026-06-22) - canonical compliance migration
         **Protocol:** BDS Documentation Protocol v2.0; BDS Repo Documentation System Canonical Compliance Standard
 
-        > **Generated artifact warning:** `doc/LINSYSTEM.md` is assembled output. Edit
+        > **Generated artifact warning:** `doc/linSYSTEM.md` is assembled output. Edit
         > the source modules under `doc/system/` and rebuild. Hand edits to the
         > compiled artifact are overwritten by the next build.
 
@@ -15,7 +15,7 @@
 
         - Command: `bash doc/system/BUILD.sh`
         - Validation: `bash doc/system/validate_snapshots.sh` runs during assembly
-        - Primary output: `doc/LINSYSTEM.md`
+        - Primary output: `doc/linSYSTEM.md`
 
         This `doc/system/` tree is the canonical source of truth for forge_lineage. It uses
         explicit **truth classes**: canonical facts define repo role, authority
