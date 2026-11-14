@@ -35,7 +35,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Builds doc/LINSYSTEM.md from doc/system/ and validates the snapshots.
+      # Builds doc/linSYSTEM.md from doc/system/ and validates the snapshots.
       - name: Build the system reference
         run: CHECK=1 bash doc/system/BUILD.sh
 
